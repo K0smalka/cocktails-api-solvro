@@ -1,7 +1,8 @@
-const {Cocktail, Ingredient, CocktailIngredients} = require('../models');
-const {Op} = require('sequelize');
-const express = require("express");
-const router = express.Router();
+import {Cocktail, Ingredient, CocktailIngredients} from "../models/index.js";
+import {Op} from "sequelize";
+import express from "express";
+
+export const router = express.Router();
 
 router.post('/', async (req, res) => {
         try {
@@ -153,4 +154,3 @@ router.post('/:id/ingredients', async (req, res) => {
 //dodac ponizsza funkcje
 //router.delete('/:id/:ingredientId', cocktailController.deleteIngredientFromCocktail);
 
-module.exports = router;

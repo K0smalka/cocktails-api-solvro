@@ -1,20 +1,19 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+import {sequelize} from '../config/database.js';
+import {DataTypes} from "sequelize";
+import {Cocktail} from "./cocktail.js";
 
-const CocktailIngredients = sequelize.define('CocktailIngredients', {
+export const CocktailIngredients = sequelize.define('CocktailIngredients', {
     CocktailId: {
         type: DataTypes.INTEGER,
-        references: { model: 'Cocktails', key: 'id' },
+        references: {model: 'Cocktails', key: 'id'},
         onDelete: 'CASCADE'
     },
     IngredientId: {
         type: DataTypes.INTEGER,
-        references: { model: 'Ingredients', key: 'id' },
+        references: {model: 'Ingredients', key: 'id'},
         onDelete: 'CASCADE'
     },
-    quantity: { type: DataTypes.STRING, allowNull: false }
+    quantity: {type: DataTypes.STRING, allowNull: false}
 }, {
     tableName: 'CocktailIngredients',
 });
-
-module.exports = CocktailIngredients;

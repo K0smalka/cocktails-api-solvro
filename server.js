@@ -1,7 +1,7 @@
-const express = require('express');
-const {sequelize} = require('./models');
-const cocktailRoutes = require('./controllers/cocktailController');
-const ingredientRoutes = require('./controllers/ingredientController');
+import express from 'express';
+import {sequelize} from './models/index.js';
+import {router as cocktailRoutes} from './controllers/cocktailController.js';
+import {router as ingredientRoutes} from './controllers/ingredientController.js';
 
 const app = express();
 const port = 3000;

@@ -1,7 +1,7 @@
-const {DataTypes} = require('sequelize');
-const sequelize = require('../config/database');
+import {DataTypes} from 'sequelize';
+import {sequelize} from '../config/database.js'
 
-const Cocktail = sequelize.define('Cocktail', {
+export const Cocktail = sequelize.define('Cocktail', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, allowNull: false},
     category: {type: DataTypes.STRING, allowNull: false},
@@ -9,5 +9,3 @@ const Cocktail = sequelize.define('Cocktail', {
 }, {
     tableName: 'Cocktails',
 });
-
-module.exports = Cocktail;

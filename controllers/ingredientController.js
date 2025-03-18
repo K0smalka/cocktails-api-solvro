@@ -1,7 +1,8 @@
-const {Op} = require("sequelize");
-const {Ingredient} = require("../models");
-const express = require("express");
-const router = express.Router();
+import {Ingredient} from "../models/index.js";
+import {Op} from "sequelize";
+import express from "express";
+
+export const router = express.Router();
 
 router.post('/', async (req, res) => {
         try {
@@ -99,5 +100,3 @@ router.delete('/:id', async (req, res) => {
         }
     }
 );
-
-module.exports = router;

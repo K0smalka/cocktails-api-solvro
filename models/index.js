@@ -1,8 +1,9 @@
-const sequelize = require('../config/database');
-const Cocktail = require('./cocktail');
-const Ingredient = require('./ingredient');
-const CocktailIngredients = require('./cocktailIngredients');
+import {sequelize} from '../config/database.js';
+import {Cocktail} from './cocktail.js';
+import {Ingredient} from './ingredient.js';
+import {CocktailIngredients} from './cocktailIngredients.js';
 
+// Powiązania między modelami
 Cocktail.belongsToMany(Ingredient, {
     through: CocktailIngredients,
     foreignKey: 'CocktailId',
@@ -17,4 +18,4 @@ Ingredient.belongsToMany(Cocktail, {
     onDelete: 'CASCADE'
 });
 
-module.exports = { sequelize, Cocktail, Ingredient, CocktailIngredients };
+export {sequelize, Cocktail, Ingredient, CocktailIngredients};
