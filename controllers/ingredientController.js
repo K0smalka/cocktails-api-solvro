@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
                 };
 
                 if (!sortOptions[sort]) {
-                    return res.status(400).json({error: "Niepoprawny parametr sortowania"});
+                    return res.status(400).json({error: "Invalid sort parameter"});
                 }
 
                 order.push(sortOptions[sort]);
@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
             const ingredients = await Ingredient.findAll({where, order});
             res.status(200).json(ingredients);
         } catch (error) {
-            res.status(500).json({error: 'Błąd podczas pobierania składników'});
+            res.status(500).json({error: 'Error while downloading ingredients'});
         }
     }
 );
@@ -54,7 +54,7 @@ router.get('/:id', async (req, res) => {
         try {
             const {id} = req.params;
             if (!id) {
-                return res.status(400).json({message: 'Brak ID składnika w danych.'});
+                return res.status(400).json({message: 'Missing ingredient ID in data.'});
             }
 
             const ingredient = await Ingredient.findByPk(id);
@@ -72,7 +72,7 @@ router.put('/:id', async (req, res) => {
         try {
             const {id} = req.params;
             if (!id) {
-                return res.status(400).json({message: 'Brak ID składnika w danych.'});
+                return res.status(400).json({message: 'Missing ingredient ID in data.'});
             }
 
             const [updated] = await Ingredient.update(req.body, {where: {id}});
@@ -88,7 +88,7 @@ router.delete('/:id', async (req, res) => {
         try {
             const {id} = req.params;
             if (!id) {
-                return res.status(400).json({message: 'Brak ID składnika w danych.'});
+                return res.status(400).json({message: 'Missing ingredient ID in data.'});
             }
 
             const deleted = await Ingredient.destroy({where: {id}});
