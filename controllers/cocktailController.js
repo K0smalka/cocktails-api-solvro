@@ -197,12 +197,9 @@ router.put("/:id/ingredient", async (req, res) => {
     const { ingredientId, quantity } = req.body;
 
     if (!id || !ingredientId || quantity === undefined) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Missing required data (cocktail ID, ingredient or quantity).",
-        });
+      return res.status(400).json({
+        message: "Missing required data (cocktail ID, ingredient or quantity).",
+      });
     }
 
     const cocktailIngredient = await CocktailIngredients.findOne({
@@ -210,11 +207,9 @@ router.put("/:id/ingredient", async (req, res) => {
     });
 
     if (!cocktailIngredient) {
-      return res
-        .status(404)
-        .json({
-          message: "The given ingredient does not exist in this cocktail.",
-        });
+      return res.status(404).json({
+        message: "The given ingredient does not exist in this cocktail.",
+      });
     }
 
     await cocktailIngredient.update({ quantity });
@@ -232,11 +227,9 @@ router.delete("/:id/ingredient", async (req, res) => {
     const { ingredientId } = req.body;
 
     if (!id || !ingredientId) {
-      return res
-        .status(400)
-        .json({
-          message: "Missing required data (cocktail or ingredient ID).",
-        });
+      return res.status(400).json({
+        message: "Missing required data (cocktail or ingredient ID).",
+      });
     }
 
     const deleted = await CocktailIngredients.destroy({
@@ -244,11 +237,9 @@ router.delete("/:id/ingredient", async (req, res) => {
     });
 
     if (!deleted) {
-      return res
-        .status(404)
-        .json({
-          message: "The given ingredient does not exist in this cocktail.",
-        });
+      return res.status(404).json({
+        message: "The given ingredient does not exist in this cocktail.",
+      });
     }
 
     res
