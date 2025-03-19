@@ -17,25 +17,54 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
         try {
             const {ingredient, alcohol, sort} = req.query;
+
             const include = [{
                 model: Ingredient,
-                through: {
-                    attributes: ['quantity'],
-                },
+                through: {attributes: ['quantity']},
                 attributes: ['id', 'name', 'description', 'isAlcohol', 'image'],
             }];
 
             const where = {};
-            const order = [];
 
             if (ingredient) {
-                include[0].where = {name: {[Op.iLike]: `%${ingredient}%`}};
+                const ingredientCocktails = await Cocktail.findAll({
+                    include: [{
+                        model: Ingredient,
+                        where: {name: {[Op.iLike]: `%${ingredient}%`}},
+                        attributes: []
+                    }],
+                    attributes: ['id']
+                });
+
+                const cocktailIds = ingredientCocktails.map(cocktail => cocktail.id);
+
+                if (cocktailIds.length === 0) {
+                    return res.status(200).json([]);
+                }
+
+                where.id = {[Op.in]: cocktailIds};
             }
 
-            if (alcohol !== undefined) {
-                include[0].where = {isAlcohol: alcohol === 'true'};
+            if (alcohol === 'true') {
+                const alcoholicCocktails = await Cocktail.findAll({
+                    include: [{
+                        model: Ingredient,
+                        where: {isAlcohol: true},
+                        attributes: []
+                    }],
+                    attributes: ['id']
+                });
+
+                const cocktailIds = alcoholicCocktails.map(cocktail => cocktail.id);
+
+                if (cocktailIds.length === 0) {
+                    return res.status(200).json([]);
+                }
+
+                where.id = where.id ? {[Op.and]: [where.id, {[Op.in]: cocktailIds}]} : {[Op.in]: cocktailIds};
             }
 
+            const order = [];
             if (sort) {
                 const sortOptions = {
                     name: ['name', 'ASC'],
@@ -91,13 +120,17 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
         try {
-            const {id, ...updateData} = req.params;
+            const {id} = req.params;
+            const updateData = req.body;
+
             if (!id) {
                 return res.status(400).json({message: 'Missing cocktail ID in data.'});
             }
 
             const [updated] = await Cocktail.update(updateData, {where: {id}});
+
             if (!updated) return res.status(404).json({message: 'Cocktail not found'});
+
             res.status(200).json({message: 'Cocktail updated successfully'});
         } catch (error) {
             res.status(500).json({message: error.message});
@@ -179,7 +212,6 @@ router.put('/:id/ingredient', async (req, res) => {
         }
     }
 );
-
 
 router.delete('/:id/ingredient', async (req, res) => {
         try {

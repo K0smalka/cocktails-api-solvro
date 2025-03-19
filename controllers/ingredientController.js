@@ -14,10 +14,9 @@ router.post('/', async (req, res) => {
     }
 );
 
-
 router.get('/', async (req, res) => {
         try {
-            const {name, alcoholic, sort} = req.query;
+            const {name, alcohol, sort} = req.query;
             const where = {};
             const order = [];
 
@@ -25,8 +24,8 @@ router.get('/', async (req, res) => {
                 where.name = {[Op.iLike]: `%${name}%`};
             }
 
-            if (alcoholic !== undefined) {
-                where.isAlcohol = alcoholic === 'true';
+            if (alcohol !== undefined) {
+                where.isAlcohol = alcohol === 'true';
             }
 
             if (sort) {
@@ -66,7 +65,6 @@ router.get('/:id', async (req, res) => {
         }
     }
 );
-
 
 router.put('/:id', async (req, res) => {
         try {

@@ -11,14 +11,17 @@ app.use('/api/cocktails', cocktailRoutes);
 app.use('/api/ingredients', ingredientRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Witam i Pozdrawiam :D');
-});
+        res.send('Witam i Pozdrawiam :D');
+    }
+);
 
 sequelize.sync()
     .then(() => {
-        console.log('Sequelize successful');
-        app.listen(port, () => {
-            console.log(`Server is running on http://localhost:${port}`);
-        });
-    })
+            console.log('Sequelize successful');
+            app.listen(port, () => {
+                    console.log(`Server is running on http://localhost:${port}`);
+                }
+            );
+        }
+    )
     .catch(err => console.error('Sequelize error:', err));
