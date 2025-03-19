@@ -1,5 +1,5 @@
 Database used: PostgreSQL
-Program do testowania API: Postman
+API testing program: Postman
 
 Routes for Cocktails:
 
