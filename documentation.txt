@@ -1,0 +1,34 @@
+Database used: PostgreSQL
+Program do testowania API: Postman
+
+Routes for Cocktails:
+
+POST ./api/cocktails – Allows you to create a cocktail.
+GET ./api/cocktails – Retrieves a list of cocktails based on the following criteria:
+    ?sort=name – Sorts cocktails alphabetically by name.
+    ?sort=date – Sorts cocktails by creation date (newest first).
+    ?sort=category – Sorts cocktails alphabetically by category.
+    ?ingredient=<ingredient_name> – Filters cocktails that contain the specified ingredient.
+    ?alcohol=<true/false> – Filters cocktails based on alcohol content:
+        true – Returns only cocktails that contain alcohol.
+        false – Returns only non-alcoholic cocktails.
+GET ./api/cocktails/:id – Retrieves details of a specific cocktail by its ID.
+PUT ./api/cocktails/:id – Updates a cocktail, allowing changes to its name, category, and instructions.
+DELETE ./api/cocktails/:id – Deletes a cocktail by its ID.
+POST ./api/cocktails/:id/ingredient – Adds an ingredient to a cocktail.
+PUT ./api/cocktails/:id/ingredient – Updates an ingredient in a cocktail (e.g., changes its quantity).
+DELETE ./api/cocktails/:id/ingredient – Removes an ingredient from a cocktail.
+
+Routes for Ingredients:
+
+POST ./api/ingredients – Allows you to create an ingredient.
+GET ./api/ingredients – Retrieves a list of ingredients based on the following criteria:
+    ?sort=name – Sorts ingredients alphabetically by name.
+    ?sort=date – Sorts ingredients by creation date (newest first).
+    ?name=<ingredient_name> – Filters ingredients by name (e.g., searching for "orange" returns both "Orange" and "Orange Juice").
+    ?alcohol=<true/false> – Filters ingredients based on alcohol content:
+        true – Returns only alcoholic ingredients.
+        false – Returns only non-alcoholic ingredients.
+GET ./api/ingredients/:id – Retrieves details of a specific ingredient by its ID.
+PUT ./api/ingredients/:id – Updates an ingredient, allowing changes to its name, description, alcohol status, or image.
+DELETE ./api/ingredients/:id – Deletes an ingredient by its ID.
